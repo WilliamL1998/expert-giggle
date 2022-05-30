@@ -10,7 +10,7 @@ $(document).ready(function() {
     var icon = ""
     var src = ""
 
-    // Calls openweathermap's geocoding API to get the latitude and longitude of a city and then store them into localStorage
+    // simply stores the user's input as cityName
     function getCityName() {
         cityName = $("input").val()
     }
