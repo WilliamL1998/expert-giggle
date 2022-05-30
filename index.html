@@ -17,12 +17,12 @@
     <div class="jumbotron jumbotron-fluid">
         <div class="container">
           <h1 class="display-4">Weather Dashboard</h1>
-          <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+          <p class="lead">Search for any city in the world to get their weather data.</p>
         </div>
       </div>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4">
+            <div class="col-2">
                 <div class="card">
                     <div class="card-body">
                         <h2>Search for a City:</h2>
@@ -30,18 +30,18 @@
                             <input type="text" class="form-control" id="cityInput" aria-describedby="cityIput">
                         </div>
                         <button type="button" class="btn btn-primary btn-block">Search</button>
-                        <button type="button" class="btn btn-info btn-block">Info</button>
+                        <div class="button-group"></div>
                     </div>
                   </div>
             </div>
-            <div class="col-8">
+            <div class="col-10">
                 <div class="card">
                     <div class="card-body">
-                        <div><h2 class="currentNameDateIcon">NameDateIcon</h2></div>
-                        <div class="currentTemp">Temp:</div>
-                        <div class="currentWind">Wind:</div>
-                        <div class="currentHumidity">Humidity:</div>
-                        <div class="currentUVI">UV Index:</div>
+                        <div><h2 class="currentNameDateIcon"></h2></div>
+                        <div class="currentTemp"></div>
+                        <div class="currentWind"></div>
+                        <div class="currentHumidity"></div>
+                        <div class="currentUVI"></div>
                     </div>
                 </div>
                 <div class="card">
@@ -49,44 +49,44 @@
                         <h5>5-Day Forecast</h5>
                         <div class="row">
                             <div class="col">
-                                <div class="forecastDate">Date</div>
-                                <div class="forecastIcon">Icon</div>
-                                <div class="forecastTempMin">TempMin</div>
-                                <div class="forecastTempMax">TempMax</div>
-                                <div class="forecastWind">Wind</div>
-                                <div class="forecastHumidity">Humidity</div>
+                                <div class="forecastDate0"></div>
+                                <div class="forecastIcon0"></div>
+                                <div class="forecastTempMin0"></div>
+                                <div class="forecastTempMax0"></div>
+                                <div class="forecastWind0"></div>
+                                <div class="forecastHumidity0"></div>
                             </div>
                             <div class="col">
-                                <div class="forecastDate">Date</div>
-                                <div class="forecastIcon">Icon</div>
-                                <div class="forecastTempMin">TempMin</div>
-                                <div class="forecastTempMax">TempMax</div>
-                                <div class="forecastWind">Wind</div>
-                                <div class="forecastHumidity">Humidity</div>
+                                <div class="forecastDate1"></div>
+                                <div class="forecastIcon1"></div>
+                                <div class="forecastTempMin1"></div>
+                                <div class="forecastTempMax1"></div>
+                                <div class="forecastWind1"></div>
+                                <div class="forecastHumidity1"></div>
                             </div>
                             <div class="col">
-                                <div class="forecastDate">Date</div>
-                                <div class="forecastIcon">Icon</div>
-                                <div class="forecastTempMin">TempMin</div>
-                                <div class="forecastTempMax">TempMax</div>
-                                <div class="forecastWind">Wind</div>
-                                <div class="forecastHumidity">Humidity</div>
+                                <div class="forecastDate2"></div>
+                                <div class="forecastIcon2"></div>
+                                <div class="forecastTempMin2"></div>
+                                <div class="forecastTempMax2"></div>
+                                <div class="forecastWind2"></div>
+                                <div class="forecastHumidity2"></div>
                             </div>
                             <div class="col">
-                                <div class="forecastDate">Date</div>
-                                <div class="forecastIcon">Icon</div>
-                                <div class="forecastTempMin">TempMin</div>
-                                <div class="forecastTempMax">TempMax</div>
-                                <div class="forecastWind">Wind</div>
-                                <div class="forecastHumidity">Humidity</div>
+                                <div class="forecastDate3"></div>
+                                <div class="forecastIcon3"></div>
+                                <div class="forecastTempMin3"></div>
+                                <div class="forecastTempMax3"></div>
+                                <div class="forecastWind3"></div>
+                                <div class="forecastHumidity3"></div>
                             </div>
                             <div class="col">
-                                <div class="forecastDate">Date</div>
-                                <div class="forecastIcon">Icon</div>
-                                <div class="forecastTempMin">TempMin</div>
-                                <div class="forecastTempMax">TempMax</div>
-                                <div class="forecastWind">Wind</div>
-                                <div class="forecastHumidity">Humidity</div>
+                                <div class="forecastDate4"></div>
+                                <div class="forecastIcon4"></div>
+                                <div class="forecastTempMin4"></div>
+                                <div class="forecastTempMax4"></div>
+                                <div class="forecastWind4"></div>
+                                <div class="forecastHumidity4"></div>
                             </div>
                         </div>
                     </div>
@@ -99,6 +99,7 @@
 
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js" integrity="sha512-Izh34nqeeR7/nwthfeE0SI3c8uhFSnqxV0sI9TvTcXiFJkMd6fB644O64BRq2P/LA/+7eRvCw4GmLsXksyTHBg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
     <script src="./assets/js/script.js"></script>

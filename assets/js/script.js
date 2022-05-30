@@ -3,8 +3,11 @@ $(document).ready(function() {
     var cityLat
     var cityLon
     var weatherURL
-    var forecastData = []
     var cityURL
+    var forecastData = []
+    var currentData = []
+    var storedForecastData = []
+    var storedCurrentData = []
 
     // Calls openweathermap's geocoding API to get the latitude and longitude of a city and then store them into localStorage
     function getCityName() {
@@ -26,37 +29,73 @@ $(document).ready(function() {
         })
         // Calls openweathermap's One Call API to get all the weather data at the specified latitude and longitude found in localStorage
         .then(function() {
-        // openweathermap's One Call API with the specified city's latitude and longitude
+            // openweathermap's One Call API with the specified city's latitude and longitude
             weatherURL = "https://api.openweathermap.org/data/2.5/onecall?lat=" + cityLat + "&lon=" + cityLon + "&units=metric&appid=fad9ba9090dc8bc0f42ec341c600ef46"
             fetch(weatherURL)
             .then(function(response) {
                 return response.json()
             })
             .then(function(data) {
-               // stores the city's specific current weather data in localStorage
+                // stores the city's specific current weather data in localStorage
                 localStorage.setItem(cityName + "CurrentData", JSON.stringify([{name: cityName, date: data.current.dt, icon: data.current.weather[0].icon, temp: data.current.temp, humidity: data.current.humidity, wind: data.current.wind_speed, uvi: data.current.uvi}]))
+                currentData = [{name: cityName, date: data.current.dt, icon: data.current.weather[0].icon, temp: data.current.temp, humidity: data.current.humidity, wind: data.current.wind_speed, uvi: data.current.uvi}]
                 forecastData = []
                 // for loop that iterates through the next 5 days of forecast data and stores specified datapoint into localStorage
                 for (var i = 0; i < 5; i++) {
                     forecastData.push({date: data.daily[i].dt, icon: data.daily[i].weather[0].icon, tempMax: data.daily[i].temp.max, tempMin: data.daily[i].temp.min, wind: data.daily[i].wind_speed, humidity: data.daily[i].humidity})
                 }
                 localStorage.setItem(cityName + "ForecastData", JSON.stringify(forecastData))
+                displayCurrentData()
+                displayForecastData()
             })
         })
     }
 
-    // combines the three functions above into a single function to be called when the button is clicked
+    // function that displays the current weather data for a specific city retrieved from localStorage
+    function displayCurrentData() {
+        storedCurrentData = JSON.parse(localStorage.getItem(cityName + "CurrentData"))
+        $(".currentNameDateIcon").text(storedCurrentData[0].name + " (" + moment.unix(storedCurrentData[0].date).format("MMM DD, YYYY") + ") ")
+        // 
+        // 
+        // 
+        // 
+        // TO DO
+        // $(".currentNameDateIcon").append($("<img src = \"http://openweathermap.org/img/wn/\" + storedCurrentData[0].icon + \"@4x.png\">"))
+        // 
+        // 
+        // 
+        // 
+        // 
+        $(".currentTemp").text("Temp: " + storedCurrentData[0].temp + "°C")
+        $(".currentWind").text("Wind: " + storedCurrentData[0].wind + " m/s")
+        $(".currentHumidity").text("Humidity: " + storedCurrentData[0].humidity + " %")
+        $(".currentUVI").text("UV Index: " + storedCurrentData[0].uvi)
+    }
+
+    // function that displays the forecast weather data for a specific city retrieved from localStorage
+    function displayForecastData() {
+        storedForecastData = JSON.parse(localStorage.getItem(cityName + "ForecastData"))
+        for (var j = 0; j < 5; j++){
+            $(".forecastDate" + j).text(moment.unix(storedForecastData[j].date).format("MMM DD, YYYY"))
+            $(".forecastTempMin" + j).text("Lowest Temp: " + storedForecastData[j].tempMin + "°C")
+            $(".forecastTempMax" + j).text("Highest Temp: " + storedForecastData[j].tempMax + "°C")
+            $(".forecastWind" + j).text("Wind: " + storedForecastData[j].wind + " m/s")
+            $(".forecastHumidity" + j).text("Humidity: " + storedForecastData[j].humidity + " %")
+        }
+    }
+
+    // combines the functions above into a single function and add a new button named after the searched city
     function search() {
         getCityName()
-        getWeather
+        getWeather()
+        $(".button-group").prepend($("<button type=\"button\" class=\"btn btn-info btn-block mt-2\">" + cityName + "</button>"))
     }
-
-    $(".btn-primary").on("click", search)
-
-    // function that displays the current weather data for a specific city retrieved from localStorage
-    function displayCurrentWeatherData() {
-        $(".currentNameDateIcon").text("Hello")
-    }
-
-    displayCurrentWeatherData()
+    
+    // initializing button and enter key triggers to call forth the search function above
+    $(".btn-primary").click(search)
+    $(".form-control").keypress(function(event) {
+        if (event.key === "Enter"){
+            search()
+        }
+    })
 })
