@@ -5,9 +5,10 @@ $(document).ready(function() {
     var weatherURL
     var cityURL
     var forecastData = []
-    var currentData = []
     var storedForecastData = []
     var storedCurrentData = []
+    var icon = ""
+    var src = ""
 
     // Calls openweathermap's geocoding API to get the latitude and longitude of a city and then store them into localStorage
     function getCityName() {
@@ -38,7 +39,6 @@ $(document).ready(function() {
             .then(function(data) {
                 // stores the city's specific current weather data in localStorage
                 localStorage.setItem(cityName + "CurrentData", JSON.stringify([{name: cityName, date: data.current.dt, icon: data.current.weather[0].icon, temp: data.current.temp, humidity: data.current.humidity, wind: data.current.wind_speed, uvi: data.current.uvi}]))
-                currentData = [{name: cityName, date: data.current.dt, icon: data.current.weather[0].icon, temp: data.current.temp, humidity: data.current.humidity, wind: data.current.wind_speed, uvi: data.current.uvi}]
                 forecastData = []
                 // for loop that iterates through the next 5 days of forecast data and stores specified datapoint into localStorage
                 for (var i = 0; i < 5; i++) {
@@ -55,28 +55,32 @@ $(document).ready(function() {
     function displayCurrentData() {
         storedCurrentData = JSON.parse(localStorage.getItem(cityName + "CurrentData"))
         $(".currentNameDateIcon").text(storedCurrentData[0].name + " (" + moment.unix(storedCurrentData[0].date).format("MMM DD, YYYY") + ") ")
-        // 
-        // 
-        // 
-        // 
-        // TO DO
-        // $(".currentNameDateIcon").append($("<img src = \"http://openweathermap.org/img/wn/\" + storedCurrentData[0].icon + \"@4x.png\">"))
-        // 
-        // 
-        // 
-        // 
-        // 
+        icon = storedCurrentData[0].icon
+        src = "https://openweathermap.org/img/wn/" + icon + "@2x.png"
+        $(".currentNameDateIcon").append($("<img src = " + src + ">"))
         $(".currentTemp").text("Temp: " + storedCurrentData[0].temp + "°C")
         $(".currentWind").text("Wind: " + storedCurrentData[0].wind + " m/s")
         $(".currentHumidity").text("Humidity: " + storedCurrentData[0].humidity + " %")
         $(".currentUVI").text("UV Index: " + storedCurrentData[0].uvi)
+
+        if (storedCurrentData[0].uvi < 4) {
+            $(".current").attr("id", "favorable")
+        } else if (storedCurrentData[0].uvi = 4 && storedCurrentData[0].uvi < 8) {
+            $(".current").attr("id", "moderate")
+        } else {
+            $(".current").attr("id", "severe")
+        }
     }
 
     // function that displays the forecast weather data for a specific city retrieved from localStorage
     function displayForecastData() {
         storedForecastData = JSON.parse(localStorage.getItem(cityName + "ForecastData"))
+        $(".forecastIcons").remove()
         for (var j = 0; j < 5; j++){
             $(".forecastDate" + j).text(moment.unix(storedForecastData[j].date).format("MMM DD, YYYY"))
+            icon = storedForecastData[j].icon
+            src = "https://openweathermap.org/img/wn/" + icon + "@2x.png"
+            $(".forecastIcon" + j).append($("<img class = forecastIcons src = " + src + ">"))
             $(".forecastTempMin" + j).text("Lowest Temp: " + storedForecastData[j].tempMin + "°C")
             $(".forecastTempMax" + j).text("Highest Temp: " + storedForecastData[j].tempMax + "°C")
             $(".forecastWind" + j).text("Wind: " + storedForecastData[j].wind + " m/s")
@@ -98,4 +102,12 @@ $(document).ready(function() {
             search()
         }
     })
+
+    // initializing searched city button triggers to call forth display functions again
+    $(".button-group").click(function(event) {
+        cityName = event.target.innerHTML
+        displayCurrentData()
+        displayForecastData()
+    })
+
 })
