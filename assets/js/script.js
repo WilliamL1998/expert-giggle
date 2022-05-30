@@ -17,7 +17,7 @@ $(document).ready(function() {
 
     function getWeather() {
         // openweathermap's geocoding API with the city name received from user
-        cityURL = "http://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=5&appid=fad9ba9090dc8bc0f42ec341c600ef46"
+        cityURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityName + "&limit=5&appid=fad9ba9090dc8bc0f42ec341c600ef46"
         fetch(cityURL)
         .then(function(response) {
             return response.json()
