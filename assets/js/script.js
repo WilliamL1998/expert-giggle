@@ -106,8 +106,9 @@ $(document).ready(function() {
     // initializing searched city button triggers to call forth display functions again
     $(".button-group").click(function(event) {
         cityName = event.target.innerHTML
+        event.target.remove()
+        $(".button-group").prepend($("<button type=\"button\" class=\"btn btn-info btn-block mt-2\">" + cityName + "</button>"))
         displayCurrentData()
         displayForecastData()
     })
-
 })
