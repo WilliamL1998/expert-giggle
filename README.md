@@ -1,4 +1,4 @@
-# Module 6 expert-giggle
+# Weather Dashboard
 
 ## Description
 This site is a weather dashboard that collects weather data from a server-side API name OpenWeather. The user can search for any city in the world and the corresponding weather data will appear on screen.
